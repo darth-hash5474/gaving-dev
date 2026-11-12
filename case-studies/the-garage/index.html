@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept: Quote Request Tool — The Garage (Wichita, KS)</title>
+<meta name="description" content="Independent portfolio case study: a working quote-request tool prototype, built to replace a broken flow found on a real local shop's site.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="https://gaving.dev">Gavin Griffith</a>
+    <nav><a href="https://gaving.dev#projects">← Back to portfolio</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">Case study · unsolicited</span>
+    <h1>Quote Request Tool — a fix for The Garage's broken flow</h1>
+    <p class="lede">A real audit of a real local business's site, and a working prototype of the fix. Not affiliated
+      with, built by, or endorsed by The Garage — this is independent portfolio work.</p>
+  </div>
+</section>
+
+<div class="disclaimer wrap">
+  <strong>What this is:</strong> I looked at <a href="http://www.garagewichita.com/" target="_blank" rel="noopener">garagewichita.com</a>,
+  a real auto shop's real website, found a broken customer-facing flow, and built a working replacement as a
+  demonstration. This page is <strong>not live on their site, not sent to their systems, and not something
+  they asked for or have seen.</strong> It exists to show how I'd approach a real engineering problem for a
+  real business — nothing here is published, deployed, or represented as official.
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <h2>What I found</h2>
+    <p class="muted">A quick audit of their live site turned up a broken customer path and some maintenance gaps:</p>
+    <ul class="findings">
+      <li><strong>The "Get a Quote" link leads nowhere documented</strong> — no visible form, no clear next step
+        for a customer trying to request an estimate.</li>
+      <li><strong>Booking runs through a disconnected third-party tool</strong> (a Mitchell1 CRM page), separate
+        from their own branding and site.</li>
+      <li><strong>No pricing shown anywhere</strong> for actual repair services — only the car wash has prices listed.</li>
+      <li><strong>A broken Facebook embed</strong> throwing a visible "Error validating access token" message on
+        the homepage.</li>
+      <li><strong>Visible typos</strong> in live copy ("Expereince," "memebership," "DoesThe").</li>
+    </ul>
+    <p class="muted">The clearest, most fixable gap: a customer trying to request a quote hits a dead end. Below
+      is a working version of what that flow should do.</p>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <h2>The fix: a working quote request tool</h2>
+    <p class="muted">Fill it out like a real customer would. On submit, it builds a clean, structured service
+      ticket — the kind a front desk could act on immediately, instead of a dead link.</p>
+
+    <div class="card" id="formCard">
+      <form id="quoteForm">
+        <div class="row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" required placeholder="(316) 555-0100">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="vehicle">Vehicle (year / make / model)</label>
+            <input type="text" id="vehicle" required placeholder="2016 Ford F-150">
+          </div>
+          <div class="field">
+            <label for="mileage">Mileage (optional)</label>
+            <input type="text" id="mileage" placeholder="88,000">
+          </div>
+        </div>
+        <div class="field">
+          <label for="issue">What's going on with the vehicle?</label>
+          <textarea id="issue" required rows="4" placeholder="e.g. grinding noise when braking, started about a week ago"></textarea>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="contact">Preferred contact method</label>
+            <select id="contact">
+              <option>Call me</option>
+              <option>Text me</option>
+              <option>Either is fine</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="when">When can you bring it in?</label>
+            <input type="text" id="when" placeholder="This week, mornings">
+          </div>
+        </div>
+        <button type="submit">Generate quote request</button>
+      </form>
+
+      <div id="ticketOut" hidden>
+        <h3>Service ticket</h3>
+        <pre id="ticketText"></pre>
+        <div class="ticket-actions">
+          <button type="button" id="downloadBtn">Download .txt</button>
+          <button type="button" id="resetBtn" class="btn-outline">Start over</button>
+        </div>
+        <p class="note">In a real deployment, this ticket would post straight into the shop's own intake queue
+          instead of a generic quote-request dead end — no third-party tool required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer"><div class="wrap">Independent case study by <a href="https://gaving.dev">Gavin Griffith</a> · not affiliated with The Garage</div></footer>
+
+<script>
+const form = document.getElementById('quoteForm');
+const out = document.getElementById('ticketOut');
+const formCard = document.getElementById('formCard');
+const ticketText = document.getElementById('ticketText');
+
+function pad(n){ return n.toString().padStart(2,'0'); }
+function ticketId(){
+  const d = new Date();
+  return `GAR-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${Math.floor(Math.random()*900+100)}`;
+}
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const vehicle = document.getElementById('vehicle').value.trim();
+  const mileage = document.getElementById('mileage').value.trim();
+  const issue = document.getElementById('issue').value.trim();
+  const contact = document.getElementById('contact').value;
+  const when = document.getElementById('when').value.trim();
+  const id = ticketId();
+  const now = new Date();
+
+  const lines = [
+    `SERVICE QUOTE REQUEST`,
+    `Ticket: ${id}`,
+    `Submitted: ${now.toLocaleString()}`,
+    ``,
+    `Customer: ${name}`,
+    `Phone: ${phone}`,
+    `Preferred contact: ${contact}`,
+    ``,
+    `Vehicle: ${vehicle}`,
+    mileage ? `Mileage: ${mileage}` : null,
+    ``,
+    `Issue reported:`,
+    issue,
+    ``,
+    when ? `Availability: ${when}` : null,
+  ].filter(Boolean).join('\n');
+
+  ticketText.textContent = lines;
+  form.closest('form').hidden = true;
+  out.hidden = false;
+  out.dataset.content = lines;
+  out.dataset.id = id;
+});
+
+document.getElementById('downloadBtn').addEventListener('click', function(){
+  const blob = new Blob([document.getElementById('ticketOut').dataset.content], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = document.getElementById('ticketOut').dataset.id + '.txt';
+  a.click();
+});
+
+document.getElementById('resetBtn').addEventListener('click', function(){
+  form.reset();
+  form.hidden = false;
+  out.hidden = true;
+});
+</script>
+</body>
+</html>
