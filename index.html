@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gavin Griffith — Software Developer</title>
+<meta name="description" content="Self-taught software developer: web, AI-assisted products, security, and automation tooling.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <span class="logo">Gavin Griffith</span>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>I build software that solves a real problem, end to end.</h1>
+    <p class="lede">Self-taught developer working across web development, AI-assisted products, security, and
+      business automation. Based in Wichita, KS. Currently shipping a live SaaS product and a set of
+      standalone automation tools, solo.</p>
+    <div class="cta-row">
+      <a class="btn" href="#projects">See the work</a>
+      <a class="btn btn-outline" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="wrap">
+    <h2>Selected projects</h2>
+
+    <article class="project featured">
+      <div class="project-head">
+        <h3>DeskFlyAI</h3>
+        <span class="tag">Live product</span>
+      </div>
+      <p>A SaaS AI receptionist for small-business websites — built and shipped solo, from account system
+        and Stripe billing through to the deployed product. Handles signup, email confirmation, rate
+        limiting, per-assistant spend budgets, a managed-workspace plan for agency clients, and a full
+        test suite.</p>
+      <ul class="stack">
+        <li>Python / FastAPI</li><li>SQLite</li><li>Stripe billing</li><li>Vanilla JS SPA frontend</li><li>Fly.io</li>
+      </ul>
+      <div class="links">
+        <a href="https://deskflyai.com" target="_blank" rel="noopener">Live site ↗</a>
+        <a href="https://github.com/darth-hash5474/deskflyai" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+    </article>
+
+    <div class="project-grid">
+      <article class="project">
+        <h3>Seller Profit Report</h3>
+        <p>Upload an Etsy/eBay/Poshmark order export, get real profit after fees, shipping, and item cost —
+          by month and by item.</p>
+        <div class="links"><a href="https://github.com/darth-hash5474/seller-profit" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+      <article class="project">
+        <h3>Weekly Ops Summary</h3>
+        <p>Sales + payroll exports in, labor cost vs. sales out — by week, day, or month, with over-target
+          periods flagged automatically.</p>
+        <div class="links"><a href="https://github.com/darth-hash5474/labor-vs-sales" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+      <article class="project">
+        <h3>Who Hasn't Paid</h3>
+        <p>Matches payments to invoices (by number, reference text, or customer), ages everything open, and
+          drafts (never sends) reminder messages.</p>
+        <div class="links"><a href="https://github.com/darth-hash5474/unpaid-invoices" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+      <article class="project">
+        <h3>Pentest Findings Report</h3>
+        <p>Turns a scanner export (Nessus/OpenVAS/Burp) into a client-ready report: deduped across hosts,
+          ranked by severity, with retest-based Fixed/Open/New tracking.</p>
+        <div class="links"><a href="https://github.com/darth-hash5474/pentest-report" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+      <article class="project">
+        <h3>QA Test Report</h3>
+        <p>Pass/fail by suite from a test-run export, with regressions and fixes tracked against a prior
+          baseline run.</p>
+        <div class="links"><a href="https://github.com/darth-hash5474/qa-test" target="_blank" rel="noopener">Source ↗</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="section alt">
+  <div class="wrap">
+    <h2>Background</h2>
+    <p class="muted">Self-taught, broad, and hands-on — most of it learned by building and shipping, not
+      in a classroom.</p>
+    <div class="skill-grid">
+      <div class="skill"><h4>Web development</h4><p>Full-stack: Python/FastAPI, JS, SPA frontends, SQL, deployment.</p></div>
+      <div class="skill"><h4>AI-assisted products</h4><p>Building and shipping products with LLMs in the loop — prompt flows, spend controls, guardrails.</p></div>
+      <div class="skill"><h4>DevOps / sysadmin</h4><p>Deployment, hosting, environment and infrastructure management.</p></div>
+      <div class="skill"><h4>Security / pentesting</h4><p>Hands-on interest and practice; comfortable with findings triage and reporting.</p></div>
+      <div class="skill"><h4>Data & QA</h4><p>Data analytics tooling and QA/testing discipline — automated test suites on every project above.</p></div>
+      <div class="skill"><h4>Game development</h4><p>Unity; exploring multiplayer networking.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="wrap center">
+    <h2>Let's talk</h2>
+    <p class="muted">Open to full-time, contract, or project work.</p>
+    <a class="btn" href="mailto:gavingriffith212@gmail.com">Email me</a>
+    <p class="social"><a href="https://github.com/darth-hash5474" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</section>
+
+<footer class="site-footer"><div class="wrap">© <span id="year"></span> Gavin Griffith</div></footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
